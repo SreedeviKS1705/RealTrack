@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "753640064579",
+    "project_id": "livetracking-firebase-db",
+    "storage_bucket": "livetracking-firebase-db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:753640064579:android:ed8481f3bd8af8ab27f6f6",
+        "android_client_info": {
+          "package_name": "com.qaptive.location.realtrack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "753640064579-0hatnps5l44e37taoodabs8o7oa9e3r7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHaBUjarHte_-Mlh0xobK-LUpQtv0pLNI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "753640064579-0hatnps5l44e37taoodabs8o7oa9e3r7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

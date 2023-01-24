@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="location"
+            type="com.qaptive.location.realtrack.LocationModel" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/id_location_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Location name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/id_location_lat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Latitude"
+                android:text="@{location.latitude.toString()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/id_location_name"
+                app:layout_constraintEnd_toStartOf="@id/id_location_lng"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/id_location_lng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Longitude"
+                android:text="@{location.longitude.toString()}"
+                app:layout_constraintStart_toEndOf="@id/id_location_lat"
+                app:layout_constraintTop_toBottomOf="@id/id_location_name"
+                app:layout_constraintEnd_toEndOf="parent"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/id_location_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Location name"
+                android:text="@{location.time.toString()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/id_location_lat"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+</layout>

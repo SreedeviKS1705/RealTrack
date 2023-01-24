@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="icon_student_pick_fill" translatable="false">&#xe90e;</string>
+    <string name="icon_student_drop_fill" translatable="false">&#xe912;</string>
+    <string name="icon_student_drop_all_fill" translatable="false">&#xe910;</string>
+    <string name="icon_sos_fill_red" translatable="false">&#xe91a;</string>
+    <string name="icon_bus_fill" translatable="false">&#xe90d;</string>
+    <string name="icon_map_path_outline" translatable="false">&#xe904;</string>
+    <string name="icon_scan" translatable="false">&#xe909;</string>
+    <string name="icon_search_outline" translatable="false">&#xe90a;</string>
+    <string name="icon_loqqat" translatable="false">&#xe90b;</string>
+    <string name="icon_profile_fill" translatable="false">&#xe90c;</string>
+    <string name="icon_marker" translatable="false">&#xe903;</string>
+    <string name="icon_tick_fill" translatable="false">&#xe902;</string>
+    <string name="icon_clock_outline" translatable="false">&#xe908;</string>
+    <string name="icon_close_fill" translatable="false">&#xe907;</string>
+    <string name="icon_phone_fill" translatable="false">&#xe906;</string>
+    <string name="icon_bell_outline" translatable="false">&#xe905;</string>
+    <string name="icon_next_arrow" translatable="false">&#xe914;</string>
+    <string name="icon_qq" translatable="false">&#xe911;</string>
+    <string name="icon_close_fill_red" translatable="false">&#xe901;</string>
+    <string name="icon_tick_fill_green" translatable="false">&#xe917;</string>
+    <string name="icon_edit_outline" translatable="false">&#xe913;</string>
+    <string name="icon_profile_outline" translatable="false">&#xe916;</string>
+    <string name="icon_calendar_outline" translatable="false">&#xe900;</string>
+    <string name="icon_down_arrow" translatable="false">&#xe91b;</string>
+    <string name="icon_tick_fill_box" translatable="false">&#xe91d;</string>
+    <string name="icon_sos_fill" translatable="false">&#xe90f;</string>
+
+</resources>
