@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -27,6 +28,15 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val PERMISSIONS_REQUEST = 100
+
+    val locationAdapter : LocationListAdapter by lazy {
+        LocationListAdapter(object : ItemClickCallBack<LocationModel>{
+            override fun onClick(item: LocationModel) {
+
+            }
+
+        })
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +68,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.viewListButton.setOnClickListener {
+            binding.recyclerView.visibility=View.VISIBLE
+            binding.adapter=locationAdapter
             loadLocationList()
         }
 
@@ -91,16 +103,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadLocationList() {
+        val locationList : ArrayList<LocationModel> =ArrayList()
         val reference = FirebaseDatabase.getInstance().getReference("location/")
         reference.addChildEventListener(object :ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val locationData = snapshot.getValue(LocationModel::class.java)
-                Log.d("TAG_TRACK_LIST", "onChildAdded: "+locationData?.latitude.toString()+"  :  "+locationData?.longitude.toString())
+                if (locationData != null) {
+                    locationList.add(locationData)
+                    locationAdapter.setItems(locationList)
+                    binding.adapter?.notifyDataSetChanged()
+                }
+                //Log.d("TAG_TRACK_LIST", "onChildAdded: "+locationData?.latitude.toString()+"  :  "+locationData?.longitude.toString())
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                val locationData = snapshot.getValue(LocationModel::class.java)
-                Log.d("TAG_TRACK_LIST", "onChildChanged: "+locationData?.latitude.toString()+"  :  "+locationData?.longitude.toString())
+                
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
@@ -116,6 +133,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+
     }
 
 

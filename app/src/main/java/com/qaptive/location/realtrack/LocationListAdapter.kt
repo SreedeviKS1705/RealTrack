@@ -5,9 +5,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.qaptive.advancedrecyclerview.AdvancedRecyclerViewAdapter
 import com.qaptive.location.realtrack.databinding.LocationListItemBinding
+import javax.security.auth.callback.Callback
 
-class LocationListAdapter :  RecyclerView.Adapter<LocationListAdapter.MyViewHolder>(){
+class LocationListAdapter (private val callBack: ItemClickCallBack<LocationModel>) :  AdvancedRecyclerViewAdapter<LocationModel,LocationListAdapter.MyViewHolder>(){
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -21,12 +23,12 @@ class LocationListAdapter :  RecyclerView.Adapter<LocationListAdapter.MyViewHold
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        holder.binder.location=data?.get(position)
 
+        holder.binder.executePendingBindings()
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+
 
 
     class MyViewHolder(val binder: LocationListItemBinding) : RecyclerView.ViewHolder(binder.root){

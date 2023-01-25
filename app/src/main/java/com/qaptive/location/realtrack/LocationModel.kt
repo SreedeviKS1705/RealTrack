@@ -4,7 +4,7 @@ import android.location.Location
 
 class LocationModel {
     var time : Long? = null
-    var latitude : Long? = null
-    var longitude : Long? = null
+    var latitude : Double? = null
+    var longitude : Double? = null
 }
 

@@ -14,7 +14,6 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Binder
-import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
@@ -24,9 +23,8 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
-import kotlin.time.Duration.Companion.hours
-import kotlin.time.Duration.Companion.minutes
+import com.google.firebase.database.*
+import kotlin.math.log
 
 
 class TrackingService : Service(){
@@ -90,7 +88,8 @@ class TrackingService : Service(){
             client.requestLocationUpdates(request, object : LocationCallback() {
                 override fun onLocationResult(locationResult: LocationResult) {
                     val location = locationResult.lastLocation
-
+                //    val previousLocation = getLastSavedLocation()
+//                    val distance=location?.distanceTo(previousLocation)
                     val ref = FirebaseDatabase.getInstance().getReference(path).push()
                     if (location != null) {
                         ref.setValue(location)
@@ -99,6 +98,28 @@ class TrackingService : Service(){
                 }
             }, null)
         }
+    }
+
+    private fun getLastSavedLocation(): Location? {
+        var locationData : Location? = null
+        val databaseReference = FirebaseDatabase.getInstance().reference
+        val lastQuery: Query = databaseReference.child("location/").orderByKey().limitToLast(1)
+        lastQuery.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val td = dataSnapshot.value as HashMap<String, Any>?
+                    ?: return
+                val lat = td["latitude"].toString().toDouble()
+                val lag = td["longitude"].toString().toDouble()
+
+                Log.d("TAG_TRACK", "onDataChange: "+lat+" : "+lag)
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle possible errors.
+            }
+        })
+        return locationData
     }
 
     private fun buildNotification() {
