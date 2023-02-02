@@ -1,22 +1,15 @@
 package com.qaptive.location.realtrack
 
 import android.Manifest
-import android.R
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -50,6 +43,11 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        supportFragmentManager.beginTransaction()
+            .add(R.id.container,TrackFragment())
+            .addToBackStack("")
+            .commit()
+
 
         val permission = ContextCompat.checkSelfPermission(
             this,
@@ -67,11 +65,6 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        binding.viewListButton.setOnClickListener {
-            binding.recyclerView.visibility=View.VISIBLE
-            binding.adapter=locationAdapter
-            loadLocationList()
-        }
 
     }
 
@@ -102,39 +95,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun loadLocationList() {
-        val locationList : ArrayList<LocationModel> =ArrayList()
-        val reference = FirebaseDatabase.getInstance().getReference("location/")
-        reference.addChildEventListener(object :ChildEventListener{
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val locationData = snapshot.getValue(LocationModel::class.java)
-                if (locationData != null) {
-                    locationList.add(locationData)
-                    locationAdapter.setItems(locationList)
-                    binding.adapter?.notifyDataSetChanged()
-                }
-                //Log.d("TAG_TRACK_LIST", "onChildAdded: "+locationData?.latitude.toString()+"  :  "+locationData?.longitude.toString())
-            }
-
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                
-            }
-
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-        })
-
-    }
 
 
 }

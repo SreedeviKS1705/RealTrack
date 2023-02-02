@@ -10,6 +10,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.location.Criteria
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -77,7 +78,7 @@ class TrackingService : Service(){
 
         request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
         val client = LocationServices.getFusedLocationProviderClient(this)
-        val path = "location/"
+        val path = "location"
         val permission = ContextCompat.checkSelfPermission(
             this,
             Manifest.permission.ACCESS_FINE_LOCATION
@@ -92,7 +93,7 @@ class TrackingService : Service(){
 //                    val distance=location?.distanceTo(previousLocation)
                     val ref = FirebaseDatabase.getInstance().getReference(path).push()
                     if (location != null) {
-                        ref.setValue(location)
+                        ref.setValue(LocationModel(ref.key,location.latitude,location.longitude))
 
                     }
                 }
@@ -106,12 +107,7 @@ class TrackingService : Service(){
         val lastQuery: Query = databaseReference.child("location/").orderByKey().limitToLast(1)
         lastQuery.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val td = dataSnapshot.value as HashMap<String, Any>?
-                    ?: return
-                val lat = td["latitude"].toString().toDouble()
-                val lag = td["longitude"].toString().toDouble()
 
-                Log.d("TAG_TRACK", "onDataChange: "+lat+" : "+lag)
 
             }
 
@@ -126,7 +122,7 @@ class TrackingService : Service(){
         val stop = "stop"
         registerReceiver(stopReceiver, IntentFilter(stop))
         val broadcastIntent = PendingIntent.getBroadcast(
-            this, 0, Intent(stop), PendingIntent.FLAG_UPDATE_CURRENT
+            this, 0, Intent(stop), PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
 // Create the persistent notification//
